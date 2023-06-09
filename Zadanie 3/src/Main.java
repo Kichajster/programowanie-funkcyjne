@@ -40,8 +40,7 @@ public class Main {
 
     public static void main(String[] args) {
         //Punkt A
-        int n = 5; // Przykładowa wartość n
-        int result = fib(n);
+        int result = fib(5);
         System.out.println("Wynik dla punktu A: " + result);
 
         /* Dla n <= 2 wynik będzie równy 1, ponnieważ fib(0)+fib(-1) oraz fib(1)+fib(0) = 1
@@ -50,8 +49,7 @@ public class Main {
         fib(6)+fib(5) = 8+5 = 13*/
 
         //Punkt B
-        int j = 10; // Przykładowa wartość n
-        int result2 = fib2(j);
+        int result2 = fib2(10);
         System.out.println("\nWynik dla punktu B: " + result2);
 
         //Punkt C
