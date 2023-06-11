@@ -18,20 +18,11 @@ public class Main {
     }
 
     public static void main(String[] args) {
-        //wartość pierwiastka
-        double x = 8.0;
-        //najbliższa znana wartość
-        double y = 2.0;
 
-        double cubicRootResult = cubicRoot(x, y);
-        System.out.println("Wynik pierwiastka sześciennego: " + cubicRootResult);
+        System.out.println("Wynik pierwiastka sześciennego: " + cubicRoot(27, 3));
 
-        double epsilon = 0.0001;
-        double HeronMethodEpsilonResult = HeronMethodEpsilon(x, y, epsilon);
-        System.out.println("Wynik metody Herona uzależnionej od Epsilonu: " + HeronMethodEpsilonResult);
+        System.out.println("Wynik metody Herona uzależnionej od Epsilonu: " + HeronMethodEpsilon(27,3,0.001));
 
-        int steps = 10;
-        double HeronMethodStepsResult = HeronMethodSteps(x, y, steps);
-        System.out.println("Wynik metody Herona uzależnionej od ilości kroków: " + HeronMethodStepsResult);
+        System.out.println("Wynik metody Herona uzależnionej od ilości kroków: " + HeronMethodSteps(27,3,10));
     }
 }

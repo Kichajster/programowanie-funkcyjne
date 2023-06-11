@@ -1,53 +1,31 @@
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class Main {
     public static Set<Set<Integer>> powerset(Set<Integer> collection) {
-        Set<Set<Integer>> result = new HashSet<>();
-
         if (collection.isEmpty()) {
-            result.add(new HashSet<>());  // Pusty zbiór
+            Set<Set<Integer>> result = Stream.<Set<Integer>>of(new HashSet<>())
+                    .collect(Collectors.toSet());
             return result;
         }
 
         Integer first = collection.iterator().next();  // Pobieranie pierwszego elementu
-        Set<Integer> rest = new HashSet<>(collection);  // Zbiór reszty elementów
-        rest.remove(first);  // Usuwanie pierwszego elementu z reszty elementów
+        Set<Integer> rest = collection.stream().skip(1).collect(Collectors.toSet());  // Zbiór reszty elementów
 
         Set<Set<Integer>> subsets = powerset(rest);
 
-        result.addAll(subsets);  // Dodawanie podzbiorów bez pierwszego elementu
-
-        for (Set<Integer> subset : subsets) {
-            Set<Integer> newSubset = new HashSet<>(subset);
-            newSubset.add(first);
-            result.add(newSubset);  // Dodawanie podzbiorów z pierwszym elementem
-        }
-
-        return result;
+        return subsets.stream()
+                .flatMap(subset -> Stream.of(subset, Stream.concat(subset.stream(), Stream.of(first)).collect(Collectors.toSet())))
+                .collect(Collectors.toSet());  // Zwracanie zbioru zawierającego podzbiory
     }
 
     public static void main(String[] args) {
-        Set<Integer> input = new HashSet<>();
-        input.add(1);
-        input.add(2);
-        input.add(3);
+        Set<Integer> input = Stream.of(1, 2, 3).collect(Collectors.toSet());
 
         Set<Set<Integer>> result = powerset(input);
 
-        List<Set<Integer>> sortedResult = new ArrayList<>(result);
-        sortedResult.sort((a, b) -> {
-            if (a.size() == b.size()) {
-                return Integer.compare(a.hashCode(), b.hashCode());  // Porównujemy hashe podzbiorów
-            } else {
-                return Integer.compare(a.size(), b.size());  // Porównujemy rozmiary podzbiorów
-            }
-        });
-
-        for (Set<Integer> subset : sortedResult) {
-            System.out.println(subset);
-        }
+        result.forEach(System.out::println);
     }
 }
